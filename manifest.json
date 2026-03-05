@@ -1,0 +1,24 @@
+{
+  "name": "Golden Words",
+  "short_name": "Golden Words",
+  "description": "A word puzzle game made with love for Marion",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFF8E7",
+  "theme_color": "#D4A017",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%23D4A017' width='192' height='192' rx='32'/><text x='96' y='140' font-size='120' text-anchor='middle' fill='white'>⭐</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect fill='%23D4A017' width='512' height='512' rx='64'/><text x='256' y='380' font-size='320' text-anchor='middle' fill='white'>⭐</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ],
+  "categories": ["games", "entertainment"],
+  "lang": "en-US"
+}
