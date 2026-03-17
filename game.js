@@ -95,6 +95,9 @@ function renderPuzzle() {
       <button id="hint-btn" class="control-btn hint-btn" onclick="useHint()">
         💡 Hint
       </button>
+      <button id="clear-btn" class="control-btn clear-btn" onclick="clearAnswer()">
+        ↩ Clear
+      </button>
       <button id="skip-btn" class="control-btn skip-btn" onclick="skipPuzzle()">
         Skip
       </button>
@@ -214,6 +217,14 @@ function removeLetter(answerIndex) {
   const removed = GAME.currentAnswer.splice(answerIndex, 1)[0];
   GAME.availableLetters.splice(removed.index, 0, removed.letter);
   
+  renderPuzzle();
+}
+
+function clearAnswer() {
+  while (GAME.currentAnswer.length > 0) {
+    const removed = GAME.currentAnswer.pop();
+    GAME.availableLetters.splice(removed.index, 0, removed.letter);
+  }
   renderPuzzle();
 }
 
