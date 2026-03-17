@@ -253,9 +253,9 @@ function clearAllData() {
   }
 }
 
+let deferredPrompt = null;
+
 function setupInstallPrompt() {
-  let deferredPrompt;
-  
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
@@ -288,6 +288,11 @@ function hideInstallBanner() {
 }
 
 async function promptInstall() {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    deferredPrompt = null;
+  }
   const banner = document.getElementById('install-banner');
   if (banner) banner.remove();
 }

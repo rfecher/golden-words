@@ -22,6 +22,8 @@ function startGame(mode) {
   loadPuzzle(GAME.currentPuzzleIndex);
 }
 
+window.startGame = startGame;
+
 function loadPuzzle(index) {
   if (index >= GAME.puzzles.length) {
     endGame();
