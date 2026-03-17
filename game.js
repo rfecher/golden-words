@@ -160,6 +160,9 @@ function renderFillBlankAnswer() {
   const display = puzzle.display;
   let answerIndex = 0;
   
+  // Count how many blanks there are
+  const blankCount = (display.match(/_/g) || []).length;
+  
   return display.split('').map(char => {
     if (char === '_') {
       if (answerIndex < GAME.currentAnswer.length) {
@@ -173,6 +176,21 @@ function renderFillBlankAnswer() {
       return '<div class="answer-slot space"></div>';
     }
     return `<div class="answer-slot permanent">${char}</div>`;
+  }).join('');
+}
+
+function getExpectedAnswer() {
+  const puzzle = GAME.puzzles[GAME.currentPuzzleIndex];
+  // Get only the letters that are NOT shown (the _ positions)
+  const display = puzzle.display;
+  const answer = puzzle.answer;
+  let answerIndex = 0;
+  
+  return display.split('').map(char => {
+    if (char === '_') {
+      return answer[answerIndex++];
+    }
+    return '';
   }).join('');
 }
 
@@ -203,9 +221,16 @@ function shuffleString(str) {
 
 function selectLetter(letter, index) {
   const puzzle = GAME.puzzles[GAME.currentPuzzleIndex];
-  const answerLength = puzzle.answer.length;
+  let maxLetters;
   
-  if (GAME.currentAnswer.length >= answerLength) return;
+  if (puzzle.mode === 'family') {
+    maxLetters = puzzle.answer.length;
+  } else {
+    // For trivia, count the blanks in the display
+    maxLetters = (puzzle.display.match(/_/g) || []).length;
+  }
+  
+  if (GAME.currentAnswer.length >= maxLetters) return;
   
   GAME.currentAnswer.push({ letter, index });
   
@@ -261,13 +286,17 @@ function skipPuzzle() {
 }
 
 function checkAnswer() {
-  const puzzle = GAME.puzzles[GAME.currentPuzzleIndex];
+  const expected = getExpectedAnswer();
   const currentString = GAME.currentAnswer.map(a => a.letter).join('');
-  const correctAnswer = puzzle.answer.replace(/\s/g, '');
   
-  console.log('checkAnswer:', currentString, '==', correctAnswer, '=', currentString === correctAnswer);
+  // Only check when user has entered all required letters
+  if (currentString.length < expected.length) {
+    return;
+  }
   
-  if (currentString === correctAnswer) {
+  console.log('checkAnswer:', currentString, '==', expected, '=', currentString === expected);
+  
+  if (currentString === expected) {
     console.log('Correct! Calling onCorrectAnswer');
     onCorrectAnswer();
   }
