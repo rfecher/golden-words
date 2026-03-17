@@ -181,17 +181,35 @@ function renderFillBlankAnswer() {
 
 function getExpectedAnswer() {
   const puzzle = GAME.puzzles[GAME.currentPuzzleIndex];
-  // Get only the letters that are NOT shown (the _ positions)
   const display = puzzle.display;
   const answer = puzzle.answer;
-  let answerIndex = 0;
+  let result = '';
   
-  return display.split('').map(char => {
-    if (char === '_') {
-      return answer[answerIndex++];
+  // Align display with answer by position, skipping spaces in both
+  let displayIdx = 0;
+  let answerIdx = 0;
+  
+  while (displayIdx < display.length && answerIdx < answer.length) {
+    const d = display[displayIdx];
+    const a = answer[answerIdx];
+    
+    if (d === ' ') {
+      displayIdx++;
+      continue;
     }
-    return '';
-  }).join('');
+    if (a === ' ') {
+      answerIdx++;
+      continue;
+    }
+    
+    if (d === '_') {
+      result += a;
+    }
+    displayIdx++;
+    answerIdx++;
+  }
+  
+  return result;
 }
 
 function getHostAvatar(host) {
