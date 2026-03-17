@@ -2,7 +2,7 @@
   "name": "Golden Words",
   "short_name": "Golden Words",
   "description": "A word puzzle game made with love for Marion",
-  "start_url": "/",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#FFF8E7",
   "theme_color": "#D4A017",

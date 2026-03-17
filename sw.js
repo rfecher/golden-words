@@ -1,15 +1,15 @@
-const CACHE_NAME = 'golden-words-v1';
+const CACHE_NAME = 'golden-words-v2';
 const ASSETS = [
-  '/',
-  '/index.html',
-  '/style.css',
-  '/data.js',
-  '/tts.js',
-  '/stt.js',
-  '/wellness.js',
-  '/game.js',
-  '/app.js',
-  '/manifest.json'
+  './',
+  './index.html',
+  './style.css',
+  './data.js',
+  './tts.js',
+  './stt.js',
+  './wellness.js',
+  './game.js',
+  './app.js',
+  './manifest.json'
 ];
 
 self.addEventListener('install', (event) => {
