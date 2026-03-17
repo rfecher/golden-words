@@ -11,15 +11,22 @@ const GAME = {
 };
 
 function startGame(mode) {
-  GAME.gameMode = mode;
-  GAME.puzzles = getPuzzleSet();
-  GAME.currentPuzzleIndex = 0;
-  GAME.score = 0;
-  GAME.sessionComplete = false;
-  
-  startGameSession();
-  
-  loadPuzzle(GAME.currentPuzzleIndex);
+  try {
+    console.log('Starting game with mode:', mode);
+    GAME.gameMode = mode;
+    GAME.puzzles = getPuzzleSet();
+    console.log('Puzzles loaded:', GAME.puzzles.length);
+    GAME.currentPuzzleIndex = 0;
+    GAME.score = 0;
+    GAME.sessionComplete = false;
+    
+    startGameSession();
+    
+    loadPuzzle(GAME.currentPuzzleIndex);
+  } catch (e) {
+    console.error('Error starting game:', e);
+    alert('Error starting game: ' + e.message);
+  }
 }
 
 window.startGame = startGame;
