@@ -158,17 +158,19 @@ function renderScrambleAnswer() {
 function renderFillBlankAnswer() {
   const puzzle = GAME.puzzles[GAME.currentPuzzleIndex];
   const display = puzzle.display;
-  const answer = puzzle.answer.replace(/\s/g, '');
   let answerIndex = 0;
   
   return display.split('').map(char => {
-    if (char === '_' || char === ' ') {
-      if (char === '_' && answerIndex < GAME.currentAnswer.length) {
+    if (char === '_') {
+      if (answerIndex < GAME.currentAnswer.length) {
         const letter = GAME.currentAnswer[answerIndex].letter;
         answerIndex++;
-        return `<div class="answer-slot filled">${letter}</div>`;
+        return `<div class="answer-slot filled" onclick="removeLetter(${answerIndex - 1})">${letter}</div>`;
       }
       return '<div class="answer-slot empty"></div>';
+    }
+    if (char === ' ') {
+      return '<div class="answer-slot space"></div>';
     }
     return `<div class="answer-slot permanent">${char}</div>`;
   }).join('');
@@ -263,7 +265,10 @@ function checkAnswer() {
   const currentString = GAME.currentAnswer.map(a => a.letter).join('');
   const correctAnswer = puzzle.answer.replace(/\s/g, '');
   
+  console.log('checkAnswer:', currentString, '==', correctAnswer, '=', currentString === correctAnswer);
+  
   if (currentString === correctAnswer) {
+    console.log('Correct! Calling onCorrectAnswer');
     onCorrectAnswer();
   }
 }
