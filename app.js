@@ -104,7 +104,7 @@ function startGame(mode) {
   `;
   
   currentScreen = 'game';
-  window.startGame(mode);
+  initGame(mode);
 }
 
 function renderSettingsScreen() {

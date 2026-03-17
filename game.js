@@ -10,7 +10,7 @@ const GAME = {
   sessionComplete: false
 };
 
-function startGame(mode) {
+function initGame(mode) {
   try {
     console.log('Starting game with mode:', mode);
     GAME.gameMode = mode;
@@ -29,7 +29,7 @@ function startGame(mode) {
   }
 }
 
-window.startGame = startGame;
+window.startGame = initGame;
 
 function loadPuzzle(index) {
   if (index >= GAME.puzzles.length) {
