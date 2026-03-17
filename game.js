@@ -181,7 +181,15 @@ function renderFillBlankAnswer() {
 
 function getExpectedAnswer() {
   const puzzle = GAME.puzzles[GAME.currentPuzzleIndex];
+  
+  // Family mode uses scrambled, not display
+  if (puzzle.mode === 'family') {
+    return puzzle.answer;
+  }
+  
   const display = puzzle.display;
+  if (!display) return puzzle.answer;
+  
   const answer = puzzle.answer;
   let result = '';
   
